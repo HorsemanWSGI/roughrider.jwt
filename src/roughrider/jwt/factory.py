@@ -4,7 +4,7 @@ from cryptojwt.key_jar import build_keyjar, KeyJar
 from roughrider.token.meta import TokenFactory, EncryptedTokenFactory
 
 
-class JWTFactory:  #(TokenFactory, EncryptedTokenFactory):
+class JWTFactory(TokenFactory, EncryptedTokenFactory):
 
     jar: KeyJar
     lifetime: int = 3600
