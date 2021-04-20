@@ -1,2 +1,2 @@
 cryptojwt
-git+git@github.com:HorsemanWSGI/roughrider.token.git#roughrider.token
+-e git+git@github.com:HorsemanWSGI/roughrider.token.git#egg=roughrider.token
