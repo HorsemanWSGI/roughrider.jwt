@@ -1,4 +1,4 @@
-reiter.jwt
-**********
+roughrider.jwt
+**************
 
 Utilities to generate and verify JWT (JSON Web Token)
