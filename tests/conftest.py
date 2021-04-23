@@ -2,102 +2,47 @@ import pytest
 
 
 @pytest.fixture
-def jwks_sign_enc_keys():
-    return {
-        'keys': [
-            {
-                'kty': 'RSA',
-                'use': 'enc',
-                'kid': (
-                    'UkZUT0JqUkIxa2RHT3o4U1hYcEZDWnZjbzBrWUVmQ'
-                    '2gwQ3cxLU5qWFV5QQ'
-                ),
-                'e': 'AQAB',
-                'n': (
-                    'uKQlkENsS4BmwncIoWgOlFRvtnus0N54ZN8YWNH-1D_dsP8GpD'
-                    'rSemxBPgIdL02Vy-KwbsPydiysD3MmjC0D0nT0tEKKVCWAodk1'
-                    'lFiLUWgSZMQkVquhxy2AqXZY3SVFiLdvfJRnufx2vkT4VoJ_Rm'
-                    'gKj2fGt36PSKLsChi6myVOwBmSmlZjBRHIhNxKOaUplYTENM4C'
-                    'EhobsHgydr796Qd1IIltLkkPwUT3rAoBAqfjgIAzJHa18lJ_CS'
-                    'SXgqc0KZWdqc1u9h1b3BWJpJlMvC_CedyjCC3XC4gGGu9ZpJA_'
-                    'x0a9Tia_b4TL5hIyzdrbZkrQag61xEa8zw42aP2SLQ'
-                )
-            },
-            {
-                'kty': 'RSA',
-                'use': 'sig',
-                'kid': (
-                    'eHQ3RXc3TXI3NVhOY3lDSFRRcEpOYnVZaUJCQkxwNmZWRVdhczN'
-                    '2Q3JNTQ'
-                ),
-                'e': 'AQAB',
-                'n': (
-                    'vrDITf3Bq2GuR34tpJbJe0LgUL6c-Z25v7UAyG2InV65CjP6z'
-                    'pkBXN6iBhv02Uvbb31NZ-gfj8N6ACN8qLoHjXl6BlW3Lmow_e'
-                    'Dx3ZC_Zbue8v-lVUy_mmjq5QwxVm2RylCcPi6pqI02II5CJeI'
-                    'Qz5ECKl6Z-5cjp4PY_-vELTD8WyqU6BlEk7XqC9YzztWwjJ9R'
-                    '515k-APmZT2PdCuu-o0aaUALP-GzGRhVYhWDI-HZ1sf9mrwlN'
-                    'wcgyr5YH09XeBjc8ymTsv3lqv-jl1Y0sYXOS0_htb-tbp9UrC'
-                    'pYLIAmBkDRVhoEKGGu6sr2DL1BnKiheHCy0ZNTl8bdXXKDQQ'
-                )
-            }
-        ]
-    }
-
-
-@pytest.fixture
-def jwks_multipurpose_key():
-    return {
-        'keys': [
-            {
-                'kty': 'RSA',
-                'e': 'AQAB',
-                'kid': 'abc',
-                'n': (
-                    'wf-wiusGhA-gleZYQAOPQlNUIucPiqXdPVyieDqQbXXOPBe3'
-                    'nuggtVzeq7pVFH1dZz4dY2Q2LA5DaegvP8kRvoSB_87ds3dy'
-                    '3Rfym_GUSc5B0l1TgEobcyaep8jguRoHto6GWHfCfKqoUYZq'
-                    '4N8vh4LLMQwLR6zi6Jtu82nB5k8'
-                )
-            }
-        ]
-    }
-
-
-@pytest.fixture
 def jwks_enc_key():
     return {
         'keys': [
             {
                 'kty': 'RSA',
-                'e': 'AQAB',
-                'kid': 'abc',
                 'use': 'enc',
+                'kid': (
+                    'QXMzWTFzMlR0MjBmMWREZ0hTTy1ORGF3SE1URDVKZGZJN'
+                    'XlzUVgyQjNaRQ'
+                ),
                 'n': (
-                    'wf-wiusGhA-gleZYQAOPQlNUIucPiqXdPVyieDqQbXXOPBe3'
-                    'nuggtVzeq7pVFH1dZz4dY2Q2LA5DaegvP8kRvoSB_87ds3dy'
-                    '3Rfym_GUSc5B0l1TgEobcyaep8jguRoHto6GWHfCfKqoUYZq'
-                    '4N8vh4LLMQwLR6zi6Jtu82nB5k8'
-                )
-            }
-        ]
-    }
-
-
-@pytest.fixture
-def jwks_sign_key():
-    return {
-        'keys': [
-            {
-                'kty': 'RSA',
+                    '0uE8wVFSaOa8t0XdT49wNIlo8ap8c1yc_Et5AH7eidw3mRrV'
+                    'tf3lWoRrmp8x_KysIoohP1SkszefM_8kH7w3s5j9sOIjhqn1'
+                    't6haYOa2HQJNDqbVVgKDy9-_Lj5SXkbVDGUNj2RkCI4-BmnW'
+                    'ZVFQqihZ_U2dgkuqH82QHso6mYT35wB8nRAkGDxPlgc6PnUx'
+                    '8RS4K0kjc6N2g5sxA1Kjc_Do-vYW2tM-p56lHdei5DiYFoqn'
+                    'ygtIQYyluBN5Phi9nl40Lus18JEervHyQYccUJS3jsl45UIU'
+                    'Rf4ioxOrN0k7CBFuCrwkGIjaW3i-9ssPKjpODTHN99yZ-7Fp'
+                    '1Ai84w'
+                ),
                 'e': 'AQAB',
-                'kid': 'abc',
-                'use': 'sig',
-                'n': (
-                    'wf-wiusGhA-gleZYQAOPQlNUIucPiqXdPVyieDqQbXXOPBe3'
-                    'nuggtVzeq7pVFH1dZz4dY2Q2LA5DaegvP8kRvoSB_87ds3dy'
-                    '3Rfym_GUSc5B0l1TgEobcyaep8jguRoHto6GWHfCfKqoUYZq'
-                    '4N8vh4LLMQwLR6zi6Jtu82nB5k8'
+                'd': (
+                    'BzKy_TJGatg9ZtAWrsmJnfF2yJD2MIXfwejdl3u9It2GdE5rL'
+                    'wwckQtmFOAMN8C5G3C1k9DS0l86qu6xj_e_uvyk5C3D4qvYfE'
+                    '1d0GLvomvar35YV9g8IXBguTZdX2Rxjzu_y740f-pDCbsBG3I'
+                    '8G6LG95N3pePpSa6dlb93YpgMc8witx89nssC3mDJQzPRhQM1'
+                    'yEafcrK8P80GCYexfPqJxjpXxI2bCDBc3gk-Yiq-0-jPSWBJ3'
+                    'o3Lc1BY2KTpco8YRCma73o8LZUb42jHt0niS_45p7PeYznWOB'
+                    '_l37PCidR2eRv9GtHg6NGlatBLvq28jm7hpJUOi80S0hAqgQ'
+                ),
+                'p': (
+                    '70vmCzM4uY8P4pbt2smdINV9PiGXuLfYYvy6_LU5UIy2O154w'
+                    '7a5q-PdRqsN8vlisNyKj5FoIE12b5L4pagtj13BWYCLZo8wyX'
+                    'LlQ6tNByL-afPsH2bPezJtvEX9WPj0U5bzv_C9J2wt8wowX__'
+                    'mQMmmw2UfHR-wa-r05hiXBiM'
+                ),
+                'q': (
+                    '4ZmMXZYFG1cXaF_W7Mo0y1HAlXKWU5SFC68DPb16mEpx3bPSWn'
+                    'odgv7gCDrtzUf5YUINdieFJRxLFPH5Rw44woLs3fhuVSZrs6ro'
+                    'dyOY0uj4MidWAi9swFFzKr7N_vpIScq4tdFjjesRzty4YTNZsu'
+                    'ow-5ag0LhHSYwH29Wm-kE'
                 )
             }
         ]

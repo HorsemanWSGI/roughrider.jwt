@@ -1,10 +1,9 @@
+import typing
 import cryptojwt.exception
 import cryptojwt.jws.exception
 import cryptojwt.jwe.exception
-from copy import deepcopy
 from cryptojwt.jwt import JWT, utc_time_sans_frac
 from cryptojwt.key_jar import build_keyjar, KeyJar
-from cryptojwt.key_bundle import K2C as KeyTypes
 from roughrider.token.errors import ExpiredToken, InvalidToken
 from roughrider.token.meta import EncryptedTokenFactory
 
@@ -26,39 +25,44 @@ class MissingExpirationHeader(InvalidToken, cryptojwt.exception.HeaderError):
 
 class EncryptedJWTFactory(EncryptedTokenFactory):
 
-    def __init__(self, jar: KeyJar, sign: bool = True, TTL: int = 0):
-        self._jwt = JWT(key_jar=jar, sign=sign, lifetime=TTL, encrypt=True)
+    key_jar: KeyJar
+
+    def __init__(self, key_jar: KeyJar = None,
+                 encrypt: bool = True, sign: bool = True, **kwargs):
+
+        if encrypt is not True:
+            raise RuntimeError('JWT encryption is mandatory.')
+
+        self.key_jar = key_jar if key_jar is not None else KeyJar()
+        self._jwt = JWT(
+            key_jar=self.key_jar,
+            encrypt=encrypt,
+            sign=sign,
+            **kwargs
+        )
+
+    @property
+    def issuer_id(self):
+        return self._jwt.iss
 
     @classmethod
-    def new_keys(cls, kty: str = "RSA", sign: bool = True, TTL: int = 0):
-        uses = ['enc', 'sign'] if sign else ['enc']
-        key_specs = [{"type": kty, "uses": uses}]
-        if kty not in KeyTypes:
-            raise LookupError(f'Unknown key type {kty!r}.')
-        key_jar = build_keyjar(key_specs)
-        return cls(key_jar, sign=sign, TTL=TTL)
+    def new_keys(cls, iss: str = 'Generic', **kwargs):
+        """Creates a new key jar based on RSA keys.
+        """
+        uses = ['enc', 'sig'] if kwargs.get('sign', True) else ['enc']
+        key_specs = [{"type": "RSA", "use": uses}]
+        key_jar = build_keyjar(key_specs, issuer_id=iss)
+        return cls(key_jar, iss=iss, **kwargs)
 
-    @classmethod
-    def from_keys(cls, jwks: dict, sign: bool = True, TTL: int = 0):
-        key_jar = KeyJar()
-        # We do a deepcopy because cryptojwt does modify the entering dict
-        key_jar.import_jwks(deepcopy(jwks), issuer_id="")
-        if not len(key_jar.get_encrypt_key()):
-            # We must contain at least one encrypt key.
-            raise cryptojwt.jwe.exception.NoSuitableEncryptionKey()
-
-        if sign and not len(key_jar.get_signing_key()):
-            # If signature is activated, we need to have at least
-            # one signature key.
-            raise cryptojwt.jws.exception.NoSuitableSigningKeys()
-
-        return cls(key_jar, sign=sign, TTL=TTL)
-
-    def dump_keys(self):
-        return self._jwt.key_jar.export_jwks()
-
-    def generate(self, payload: dict, subject: str = 'token') -> str:
-        token = self._jwt.pack({"sub": "token", "data": payload})
+    def generate(self, payload: dict, subject: str = 'token',
+                 recv: typing.Optional[str] = None) -> str:
+        if recv is None:
+            recv = self._jwt.iss
+        token = self._jwt.pack(
+            recv=recv,
+            payload={"sub": subject, "data": payload},
+            encrypt=True,
+        )
         return token
 
     def decrypt(self, token: str) -> dict:
